@@ -6,7 +6,7 @@ from http.server import ThreadingHTTPServer
 import server
 
 def backup():
-    if not server.DB.exists():return
+    if server.DATABASE_URL or not server.DB.exists():return
     target=server.DATA/'backups'/('prates-'+date.today().isoformat()+'.zip')
     if target.exists():return
     target.parent.mkdir(exist_ok=True)
@@ -20,7 +20,7 @@ def backup():
     finally:src.close();memory.close()
 
 if __name__=='__main__':
-    backup();server.initialize()
+    backup();server.ensure_ready()
     host=os.environ.get('PRATES_HOST','127.0.0.1');port=int(os.environ.get('PRATES_PORT','8765'))
     url=f'http://127.0.0.1:{port}'
     try:httpd=ThreadingHTTPServer((host,port),server.App)

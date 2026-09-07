@@ -1,0 +1,10 @@
+data/
+public/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+.venv/
+.vercel/
+*.zip

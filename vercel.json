@@ -1,0 +1,26 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "python build_static.py",
+  "outputDirectory": "public",
+  "functions": {
+    "api/index.py": {
+      "maxDuration": 60,
+      "excludeFiles": "{data/**,tests/**,__pycache__/**,**/__pycache__/**,*.zip,.env*,Iniciar-Prates.*,start.py}"
+    }
+  },
+  "rewrites": [
+    {"source": "/api/:path*", "destination": "/api?_prates_route=:path*"}
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {"key": "X-Content-Type-Options", "value": "nosniff"},
+        {"key": "X-Frame-Options", "value": "DENY"},
+        {"key": "Referrer-Policy", "value": "no-referrer"},
+        {"key": "Cache-Control", "value": "no-store"}
+      ]
+    }
+  ]
+}

@@ -1,101 +1,147 @@
-# Prates Digital — Administrativo
+# Prates Digital — versão preparada para Vercel
 
-Sistema administrativo com predominância de preto e detalhes em laranja. Interface em português, valores em reais, acesso individual e banco de dados SQLite. Não depende de bibliotecas externas nem de internet para o uso local.
+Esta pasta substitui os arquivos da versão local que você enviou. O visual preto e os módulos foram mantidos. A publicação agora inclui uma API Python e armazenamento PostgreSQL para usuários, cadastros, sessões e anexos.
 
-## Abrir no Windows
+**O código está adaptado, mas a publicação online depende de você conectar um banco e definir duas variáveis na Vercel. Não basta subir o ZIP sem essa configuração.** A conexão real com o seu banco ainda não foi testada, porque ele ainda não foi criado.
 
-1. Se recebeu o ZIP, extraia todo o conteúdo para uma pasta.
-2. Abra **Iniciar-Prates.cmd** com dois cliques.
-3. O navegador abrirá em **http://127.0.0.1:8765**. Mantenha a janela do servidor aberta enquanto usa o sistema.
-4. No primeiro acesso, crie sua conta de administrador e guarde o código de recuperação.
-5. Em **Equipe e acessos**, crie a conta do outro sócio e entregue a ele a senha inicial e o código de recuperação de sua própria conta.
+## 1. Atualize os arquivos no GitHub
 
-Neste computador, o iniciador utiliza o Python incluído no ambiente do Codex. Em outro computador, instale Python 3.11 ou superior. Também é possível iniciar com `python start.py` na pasta do projeto.
+Extraia o ZIP. Coloque o **conteúdo** de `Prates-Digital-Vercel` na mesma pasta do repositório que contém o `index.html` publicado. Substitua os arquivos correspondentes e adicione os novos, especialmente a pasta `api`.
 
-O arquivo `index.html` depende do servidor: abrir somente esse arquivo por duplo clique não inicia o sistema.
+Essa pasta precisa ter, no mesmo nível:
 
-## Primeira configuração
+```text
+api/
+  index.py
+app.js
+index.html
+style.css
+server.py
+database.py
+build_static.py
+requirements.txt
+vercel.json
+.python-version
+.gitignore
+.vercelignore
+```
 
-- Preencha os dados da empresa em **Configurações**. A logo é opcional.
-- Os dez serviços discutidos já estão cadastrados, sem preços inventados. Ajuste preços, custos, prazos e escopo em **Serviços e pacotes**.
-- Cadastre os clientes, responsabilidades e metas reais. O banco entregue não contém vendas nem clientes de demonstração.
-- Joaquim e Kauã constam nas opções de movimentação dos sócios. As contas de acesso são criadas por vocês; nenhuma senha vem pronta.
+Inclua também os guias e os demais arquivos do pacote. Não envie a pasta `data` local ou arquivos `.env` com valores reais ao GitHub. O pacote contém regras para excluí-los de novas publicações; regras de exclusão não removem arquivos que já tenham sido publicados anteriormente.
 
-## Fluxo comercial e operacional
+## 2. Confira a pasta usada pela Vercel
 
-1. Cadastre o contato no **Funil de vendas** e o cliente em **Clientes**.
-2. Monte uma proposta com um ou mais serviços, quantidades, preços, desconto e parcelamento.
-3. Use **Abrir → Imprimir / PDF** e selecione “Salvar como PDF” na janela do navegador.
-4. Registre a aprovação. “Converter em venda” gera a venda, parcelas, projeto e briefing. Na conversão, o primeiro vencimento é a data atual; confira os dados antes de confirmar.
-5. Também é possível cadastrar a venda diretamente, incluindo entrada e parcelas mensais do saldo. A entrada gera uma conta a receber; ela não é considerada recebida automaticamente.
-6. Em **Contas a receber**, abra a conta e registre cada pagamento, inclusive pagamentos parciais.
-7. Acompanhe o projeto pelo quadro, com responsável, prazo, checklist e aprovação do cliente. No computador, arraste os cartões; no celular, altere a situação em Editar.
-8. Use **Conteúdo e redes** e **Agenda e tarefas** em lista ou calendário.
+No projeto `pratesdigitaladm`, abra **Settings → Build and Deployment** e confira:
 
-Contratos registram termos, vigência, assinatura informada e anexos. O registro de assinatura não equivale a uma assinatura eletrônica. O histórico guarda as versões anteriores dos cadastros.
+| Campo | Configuração |
+|---|---|
+| Framework Preset | **Other** |
+| Root Directory | Pasta que contém `vercel.json` |
+| Build Command | `python build_static.py` |
+| Output Directory | `public` |
+| Install Command | Deixe no padrão; a função Python usa `requirements.txt` |
 
-## Financeiro e metas
+Se os arquivos estão diretamente na raiz do repositório, use a raiz (`.` ou campo padrão). Se estão dentro de `Prates-Digital`, use **Prates-Digital**. Não use a pasta `public` como Root Directory.
 
-- Vendas e recebimentos são indicadores separados.
-- O resultado gerencial usa recebimentos menos despesas efetivamente pagas no período.
-- A verba de mídia usa categoria própria, fora do resultado operacional da agência.
-- Aportes, retiradas e reembolsos são registrados em **Sócios**. Não duplique um reembolso em Despesas.
-- Contas com recebimentos não podem ser apagadas ou ter pagamentos editados. Estornos são lançamentos separados com categoria correspondente e referência ao lançamento original.
-- Vendas com pagamentos não são canceladas automaticamente. A conciliação de estornos e do histórico deve ser tratada separadamente.
-- Mensalidades: **Abrir → Gerar cobrança** cria a próxima conta a receber e avança o vencimento em um mês. Não há cobrança bancária ou envio ao cliente.
-- Despesa mensal: **Abrir → Gerar próximo mês** cria uma única próxima despesa. Repita a partir do novo registro no próximo ciclo.
-- Metas de vendas, quantidade, recebimentos, clientes e entregas usam os dados do sistema. Renovações e indicadores personalizados têm realização manual.
-- Uma meta com responsável filtra os registros atribuídos àquela pessoa. Para uma meta geral, deixe o responsável sem seleção.
-- Os indicadores de campanhas são inseridos manualmente. CPL, CPA, CTR e ROAS são calculados a partir desses valores.
-- Relatórios exportam CSV compatível com planilhas e imprimem em PDF pelo navegador.
-- O balanço é gerencial pelo regime de caixa; não representa um balanço patrimonial contábil ou saldo bancário conciliado.
+O `vercel.json` já define o comando de build, a saída pública e o encaminhamento de `/api/...` para a função Python. Remova configurações antigas de Next.js ou de outro framework caso tenham sido colocadas nesse projeto. O pacote não usa Next.js nem precisa de `npm run build`.
 
-## Acesso, recuperação e dados
+Somente `index.html`, `app.js` e `style.css` são copiados para a pasta pública. O código do servidor e os dados não são publicados como arquivos estáticos.
 
-- Senhas são armazenadas com PBKDF2, salt individual e 300 mil iterações.
-- Sessões expiram em 12 horas e usam cookie HttpOnly e SameSite Strict.
-- Operações exigem token de sessão. Há limitação de tentativas de login e recuperação.
-- Perfis: administrador, financeiro, comercial e produção. As permissões são verificadas no servidor.
-- O código de recuperação é de uso único e permite definir uma nova senha. A recuperação gera um novo código. Não há envio de e-mail nesta versão.
-- Alterações concorrentes são detectadas para evitar que uma pessoa sobrescreva os dados da outra sem perceber.
-- Anexos têm limite de 5 MB e só podem ser baixados por quem tem acesso ao módulo.
-- O banco fica em `data/prates.sqlite3`, e os anexos em `data/uploads/`.
+## 3. Crie e conecte o banco
 
-## Backup e restauração
+Para esta instalação, use **PostgreSQL no Neon**, que pode ser conectado à Vercel. Também há compatibilidade com uma conexão PostgreSQL com pool do Supabase.
 
-O iniciador cria uma cópia diária ao abrir o sistema, quando já existe banco, em `data/backups/`. Nenhuma cópia antiga é removida automaticamente. Também é possível baixar um ZIP completo em **Configurações → Backup**. Mantenha cópias fora deste computador.
+Você pode criar o Neon pela integração disponível no Marketplace/Storage da Vercel e conectá-lo ao projeto, ou criar pelo painel do Neon e configurar a conexão manualmente. O [guia oficial de conexão Neon–Vercel](https://neon.com/docs/guides/vercel-manual) explica as opções.
 
-Para restaurar:
+No painel do banco, obtenha a conexão **PostgreSQL com pool**, que começa com `postgresql://`. Guarde-a apenas na configuração do servidor. Não use uma chave `anon`, `publishable` ou uma URL HTTP de API no lugar dessa conexão.
 
-1. Encerre o servidor.
-2. Guarde uma cópia da pasta `data` atual, sem apagá-la.
-3. Extraia o backup em uma pasta separada e confira os arquivos.
-4. Substitua `data/prates.sqlite3` e a pasta `data/uploads` pelos arquivos do backup correspondente.
-5. Inicie o sistema novamente. Use as credenciais que existiam na data do backup.
+Em **Vercel → projeto → Settings → Environment Variables**, configure para **Production**:
 
-Backups contêm dados privados e informações de autenticação. Compartilhe apenas com quem administra a empresa.
+| Nome | Valor |
+|---|---|
+| `DATABASE_URL` | A conexão PostgreSQL completa fornecida pelo banco |
+| `PRATES_SETUP_KEY` | Uma chave privada aleatória com pelo menos 24 caracteres, criada por você |
 
-## Uso por Joaquim e Kauã
+Se a integração já criou `DATABASE_URL`, confira se ela está vinculada ao projeto e ao ambiente Production. A chave de instalação pode ser criada com um gerenciador de senhas. Ela é diferente da senha que você usará para entrar no sistema.
 
-No mesmo computador, cada pessoa usa sua própria conta. Para dois computadores na mesma rede, uma única máquina deve manter o servidor e o banco. Um responsável técnico pode iniciar com `PRATES_HOST=0.0.0.0`, liberar a porta na rede privada e acessar pelo IP dessa máquina. Não crie duas cópias independentes do banco para tentar sincronizar a operação.
+Não coloque esses valores em `app.js`, no GitHub, em prints públicos ou na conversa. O arquivo `.env.example` contém somente modelos e não deve ser usado com os valores de exemplo em produção.
 
-O sistema entregue roda localmente e não foi publicado na internet. Para acesso remoto contínuo, será necessário definir hospedagem e domínio, HTTPS, serviço de inicialização e política de backups. A configuração `PRATES_SECURE_COOKIE=1` deve ser usada quando servido por HTTPS. O servidor padrão é destinado ao uso local; uma publicação pública precisa de uma camada de hospedagem adequada.
+## 4. Faça um novo deploy
 
-## Integrações da etapa seguinte
+Depois de salvar as variáveis, use **Deployments → Redeploy** na Vercel. Mudanças de variáveis só valem para novos deployments, conforme a [documentação da Vercel](https://vercel.com/docs/environment-variables).
 
-Como previsto no escopo, não estão conectados bancos, Pix/cartão, WhatsApp, Meta/Google Ads, emissão fiscal ou assinatura eletrônica. Também não há portal do cliente. Os botões de registro financeiro são controles internos e não movimentam dinheiro.
+Quando terminar, abra:
 
-## Verificação realizada
+```text
+https://pratesdigitaladm.vercel.app/api/session
+```
 
-Testes cobriram criação de conta, recuperação, permissões, proteção das operações, cadastro de cliente, venda e parcelas com arredondamento, entrada, pagamento parcial, rejeição de valor excedente, cancelamento com rollback, conversão de proposta, geração mensal sem duplicação por reenvio, anexos, backup e persistência. As telas foram verificadas no navegador em computador e celular, incluindo os módulos e o checklist.
+O resultado deve ser um objeto JSON com campos como `setup` e `user`. Se faltar a conexão, a API agora retorna uma mensagem clara em JSON. Se aparecer “The page could not be found”, confira Root Directory, a pasta `api` e `vercel.json`.
 
-## Arquivos principais
+Não compartilhe o conteúdo completo da resposta se você já estiver autenticado, pois a resposta contém informações da sessão.
 
-- `server.py`: servidor, autenticação, dados e regras de negócio.
-- `app.js`: telas e interações.
-- `style.css`: identidade visual e impressão.
-- `index.html`: página inicial.
-- `start.py`: inicialização e backup diário.
-- `Iniciar-Prates.cmd` e `Iniciar-Prates.ps1`: abertura no Windows.
+## 5. Crie os acessos
 
-Não remova a pasta `data` depois de começar a usar.
+1. Abra a página principal do site.
+2. Informe a **chave de instalação** que definiu em `PRATES_SETUP_KEY`.
+3. Crie o primeiro administrador com nome, e-mail e senha.
+4. Guarde o código de recuperação mostrado ao terminar.
+5. Em **Equipe e acessos**, cadastre a conta do outro sócio.
+
+A chave de instalação protege a criação do primeiro administrador em um endereço público. Ela não é exibida ao visitante nem enviada dentro do JavaScript. Mantenha a variável configurada; depois da primeira conta, novos usuários só são criados por um administrador autenticado.
+
+As tabelas e o catálogo de serviços são criados automaticamente no primeiro acesso válido ao banco. Preços permanecem editáveis, sem valores inventados. O banco usa um schema próprio chamado `prates`.
+
+## Como os dados ficam salvos
+
+- Na Vercel, `DATABASE_URL` é obrigatória. O sistema não tenta gravar um SQLite temporário.
+- Usuários, vendas, clientes, pagamentos, metas e sessões ficam no PostgreSQL.
+- Anexos ficam no mesmo banco, como conteúdo binário protegido pelas permissões da API. Não há links públicos para os arquivos.
+- O limite por anexo passou a **3 MB**, para caber no limite de requisição da Vercel após a codificação do upload.
+- Um novo deploy não apaga os cadastros do banco externo.
+- As conexões são encerradas após cada requisição, e a configuração por transação funciona com conexões de pool.
+- Transações e verificação de versão preservam os fluxos de vendas, pagamentos e cobranças contra reenvios e alterações concorrentes.
+
+## Backup e migração de dados locais
+
+O backup diário do iniciador Windows se aplica somente ao uso local. Para a versão online, configure os backups do provedor PostgreSQL. Como os anexos ficam no mesmo banco, eles entram no backup do provedor.
+
+O botão de exportação no sistema continua gerando um ZIP com banco SQLite e anexos, compatível com a versão local, enquanto o pacote couber no limite de resposta da Vercel. Acima desse limite, a aplicação mostra uma mensagem para usar o backup do provedor. Sessões ativas não são copiadas para o backup exportado.
+
+Se você já possui cadastros na instalação local e quer levá-los para o banco online, **não crie primeiro uma conta online**. Use `migrate_local.py` com o banco de destino vazio:
+
+```text
+python -m pip install -r requirements.txt
+python migrate_local.py --source "CAMINHO_DA_PASTA_DATA"
+```
+
+Configure `DATABASE_URL` privadamente no ambiente antes de executar. O script lê a origem sem alterá-la, verifica os anexos e recusa sobrescrever um destino que já tenha usuários ou registros da operação. Usa uma única transação para importar os dados. Depois, entre com as credenciais da instalação local.
+
+O script também aceita uma pasta de backup extraído contendo `prates.sqlite3` e `uploads/`. Não mescla duas instalações ativas. Arquivos maiores que 3 MB precisam ser tratados antes de migrar.
+
+## Continuar usando localmente
+
+Sem `DATABASE_URL` e fora da Vercel, os iniciadores Windows continuam usando SQLite local. Se você definir `DATABASE_URL`, a aplicação local usará o banco online. A configuração do ambiente deve ser intencional para não testar alterações com dados reais.
+
+O `.env.example` é apenas documentação. Os iniciadores não carregam arquivos `.env` automaticamente.
+
+As instruções de operação dos módulos estão em `GUIA-LOCAL.md`; as regras desta página prevalecem para hospedagem, banco, backup e anexos na versão Vercel.
+
+## Verificações realizadas e pendentes
+
+Verificado neste ambiente: sintaxe Python/JavaScript, build dos arquivos públicos, 11 testes de rotas/configuração/segurança, criação de conta, login, recuperação, venda com entrada e parcelas, pagamento parcial, permissões, proposta, mensalidade, anexos, exportação e persistência local. A interface também foi verificada para as mensagens de configuração e de API ausente.
+
+**Ainda pendente:** instalar as dependências na Vercel, conectar um PostgreSQL real e conferir o fluxo no endereço publicado. O pacote não foi enviado automaticamente ao GitHub nem à sua conta Vercel. Não houve teste real da conexão PostgreSQL ou da migração online neste ambiente.
+
+Para repetir os testes locais:
+
+```text
+python -m unittest discover -s tests -v
+python tests/integration_local.py
+```
+
+## Referências técnicas
+
+- [Funções Python em api/ e suporte a BaseHTTPRequestHandler](https://vercel.com/docs/functions/runtimes/python/api-directory)
+- [Rewrites da Vercel](https://vercel.com/docs/routing/rewrites)
+- [Limites das funções](https://vercel.com/docs/functions/limitations)
+- [Transações com Psycopg](https://www.psycopg.org/psycopg3/docs/basic/transactions.html)

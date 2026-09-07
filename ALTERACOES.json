@@ -1,0 +1,37 @@
+{
+  "source": "Arquivos enviados pelo usuário em F:/joka2/Projetos/prates_digital_projectADM",
+  "files": {
+    "app.js": {
+      "original_sha256": "3d2ea06e19b7ee736c1425fb527a11c96b5c1ec7ba932863ccb998b0d23bc024",
+      "adapted_sha256": "c19c12dd5e148b51b8d5e3fdcf1cba3da661e4e89d5051dd331db1c2097b9583"
+    },
+    "index.html": {
+      "original_sha256": "f2b7a3996261eb0f2ae2cdd40b20ce3d4af7ab5d5ef03c14b6c385662dc7c0d6",
+      "adapted_sha256": "f2b7a3996261eb0f2ae2cdd40b20ce3d4af7ab5d5ef03c14b6c385662dc7c0d6"
+    },
+    "server.py": {
+      "original_sha256": "1de2b737bf645ce6e196109e46996c6a92dcace17ec8c5120c0a0d376346c642",
+      "adapted_sha256": "d1b9409be76a46c9687e08051c9d483a77a9bad7bd727a30210343420f7a736b"
+    },
+    "start.py": {
+      "original_sha256": "846c274cc7f4b0ef05718c1be05da533d426345861741b79c2f6f18a9f61a952",
+      "adapted_sha256": "26e3ee53f92c0155c53d30ca4fbd1675ecdb2b0b4519a7f998ee2e03501096b7"
+    },
+    "style.css": {
+      "original_sha256": "38e396487ec1d23fb3c229e221e7bbacbb954f057d0200c2b2a350ce61ea59ad",
+      "adapted_sha256": "38e396487ec1d23fb3c229e221e7bbacbb954f057d0200c2b2a350ce61ea59ad"
+    },
+    "LEIA-ME.md": {
+      "original_sha256": "e89921eeae0c826d53da365e90603a2a1bbad83e789ce89b954223d92cc4d12c",
+      "adapted_sha256": "20b741d75bc107a176c3d59f52a29b6331a508b6644c463215504f33a2981d74"
+    },
+    "Iniciar-Prates.cmd": {
+      "original_sha256": "96489fabbb95cbf2c20194708b8235e76b0684f2a396bcbc763102137fcb3c8f",
+      "adapted_sha256": "96489fabbb95cbf2c20194708b8235e76b0684f2a396bcbc763102137fcb3c8f"
+    },
+    "Iniciar-Prates.ps1": {
+      "original_sha256": "3a371ee01d425f201ae598d7d6682ded019233720d7c37420d4f92baeb78c4c9",
+      "adapted_sha256": "3a371ee01d425f201ae598d7d6682ded019233720d7c37420d4f92baeb78c4c9"
+    }
+  }
+}
