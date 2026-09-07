@@ -101,11 +101,11 @@ class App(BaseHTTPRequestHandler):
         c.execute('INSERT INTO sessions VALUES(?,?,?,?)',(digest(token),uid,csrf,time.time()+43200))
         secure='; Secure' if CLOUD or os.environ.get('PRATES_SECURE_COOKIE')=='1' else ''
         return csrf,{'Set-Cookie':f'prates={token}; HttpOnly; SameSite=Strict; Path=/; Max-Age=43200{secure}'}
-    def do_GET(self): self.dispatch_prates_request('GET')
-    def do_POST(self): self.dispatch_prates_request('POST')
-    def do_PUT(self): self.dispatch_prates_request('PUT')
-    def do_DELETE(self): self.dispatch_prates_request('DELETE')
-    def dispatch_prates_request(self,method):
+    def do_GET(self): self.handle_request('GET')
+    def do_POST(self): self.handle_request('POST')
+    def do_PUT(self): self.handle_request('PUT')
+    def do_DELETE(self): self.handle_request('DELETE')
+    def handle_request(self,method):
         try:
             parsed=urlparse(self.path);path=parsed.path
             if not path.startswith('/api/'):
